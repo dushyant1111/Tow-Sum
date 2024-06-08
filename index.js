@@ -18,13 +18,14 @@ mongoose.connect(mongoConnectionString)
   .catch(err => console.error('Error connecting to MongoDB Atlas', err));
 
 // Route to handle addition of a and b
-app.post('/add', (req, res) => {
-    const { a, b } = req.body;
+app.get('/sum', (req, res) => {
+    const a = req.query.a;
+    const b = req.query.b;
 
     // Check if a and b are numbers
     if (typeof a === 'number' && typeof b === 'number') {
         const sum = a + b;
-        res.json({ sum });
+        res.send(sum.toString());
     } else {
         res.status(400).json({ error: 'Invalid input. a and b must be numbers.' });
     }
